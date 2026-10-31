@@ -33,13 +33,13 @@
     to{transform:translateX(110vw) translateY(10px)}
   }
   main{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
-  .pumpkin{font-size:64px;display:inline-block;animation:flicker 3s ease-in-out infinite;
-    filter:drop-shadow(0 0 18px rgba(255,106,0,.8))}
-  @keyframes flicker{0%,100%{filter:drop-shadow(0 0 14px rgba(255,106,0,.7))}
-    45%{filter:drop-shadow(0 0 28px rgba(255,165,58,.95))}55%{filter:drop-shadow(0 0 10px rgba(255,106,0,.5))}}
-  h1{font-size:34px;letter-spacing:1px;margin-top:6px;color:var(--orange);
-     text-shadow:0 0 18px rgba(255,106,0,.55)}
-  .sub{margin-top:4px;font-size:15px;opacity:.85;letter-spacing:3px;text-transform:uppercase}
+  .logo{display:block;width:min(72vw,280px);aspect-ratio:1;margin:0 auto;border-radius:50%;
+    background:var(--cream);border:5px solid var(--orange);padding:min(6vw,24px);
+    box-shadow:0 0 40px rgba(255,106,0,.6);animation:glow 3s ease-in-out infinite}
+  .logo img{display:block;width:100%;height:100%;object-fit:contain}
+  @keyframes glow{0%,100%{box-shadow:0 0 30px rgba(255,106,0,.55)}
+    45%{box-shadow:0 0 55px rgba(255,165,58,.9)}55%{box-shadow:0 0 22px rgba(255,106,0,.45)}}
+  @media (prefers-reduced-motion:reduce){.logo{animation:none}}
   .halloween{display:inline-block;margin:14px 0 6px;padding:5px 14px;border:1px solid var(--orange);
     border-radius:999px;font-size:13px;color:var(--orange2)}
   .card{margin-top:18px;padding:22px 20px;border-radius:20px;
@@ -72,9 +72,7 @@
 <div class="bats" aria-hidden="true" id="bats"></div>
 
 <main>
-  <div class="pumpkin" aria-hidden="true">🎃</div>
-  <h1>Buena Onda</h1>
-  <div class="sub">Lille</div>
+  <h1 class="logo"><img src="logo-buena-onda.png" alt="Buena Onda Lille – Tomar y Bailar" width="364" height="355"></h1>
   <div class="halloween">👻 Happy Halloween 🦇</div>
 
   <section class="card" id="step1">

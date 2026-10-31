@@ -21,14 +21,19 @@ const CONFIG = {
 2. Dépôt → **Settings** → **Pages** → Source : **Deploy from a branch** → branche `main`, dossier `/ (root)` → **Save**.
 3. Après environ une minute, la page est en ligne sur `https://TON-PSEUDO.github.io/buena-onda-wifi/`.
 
-## 3. Générer le QR code
+## 3. Générer le QR code et l'affichette
 
 ```bash
 pip install "qrcode[pil]"
-python make_qr.py https://TON-PSEUDO.github.io/buena-onda-wifi/
+python make_qr.py            # URL par défaut : https://thomaspetitpro.github.io/buenaondawifi/
 ```
 
-Le fichier `qr-buena-onda.png` est prêt à imprimer (le tester avec un téléphone avant).
+Fichiers produits :
+- `qr-buena-onda.png` : le QR code seul
+- `affichette-buena-onda.png` : affichette Halloween A6 (300 dpi)
+- `affichettes-A4.pdf` : 4 affichettes sur une feuille A4, à imprimer puis découper
+
+Tester le QR avec un téléphone avant d'imprimer.
 
 ## Bon à savoir
 

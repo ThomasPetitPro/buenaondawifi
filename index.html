@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ff6a00">
+<title>Wi-Fi Buena Onda Lille</title>
+<style>
+  :root{
+    --orange:#ff6a00; --orange2:#ffa53a; --night:#14080a; --night2:#2a0f12;
+    --cream:#fff3e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    color:var(--cream);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,106,0,.35), transparent 60%),
+      radial-gradient(ellipse at 50% 110%, rgba(255,106,0,.25), transparent 55%),
+      linear-gradient(var(--night2), var(--night));
+    background-attachment:fixed;
+    display:flex;justify-content:center;
+    padding:24px 16px 40px;
+    overflow-x:hidden;
+  }
+  .bats{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .bat{position:absolute;font-size:22px;opacity:.55;animation:fly linear infinite}
+  @keyframes fly{
+    from{transform:translateX(-10vw) translateY(0)}
+    50%{transform:translateX(50vw) translateY(-30px)}
+    to{transform:translateX(110vw) translateY(10px)}
+  }
+  main{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
+  .pumpkin{font-size:64px;display:inline-block;animation:flicker 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 18px rgba(255,106,0,.8))}
+  @keyframes flicker{0%,100%{filter:drop-shadow(0 0 14px rgba(255,106,0,.7))}
+    45%{filter:drop-shadow(0 0 28px rgba(255,165,58,.95))}55%{filter:drop-shadow(0 0 10px rgba(255,106,0,.5))}}
+  h1{font-size:34px;letter-spacing:1px;margin-top:6px;color:var(--orange);
+     text-shadow:0 0 18px rgba(255,106,0,.55)}
+  .sub{margin-top:4px;font-size:15px;opacity:.85;letter-spacing:3px;text-transform:uppercase}
+  .halloween{display:inline-block;margin:14px 0 6px;padding:5px 14px;border:1px solid var(--orange);
+    border-radius:999px;font-size:13px;color:var(--orange2)}
+  .card{margin-top:18px;padding:22px 20px;border-radius:20px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,106,0,.35);
+    backdrop-filter:blur(4px);box-shadow:0 10px 40px rgba(0,0,0,.4)}
+  .step{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--orange2);margin-bottom:8px}
+  .card p{font-size:16px;line-height:1.45;margin-bottom:16px}
+  .btn{display:block;width:100%;padding:15px 18px;border:0;border-radius:14px;cursor:pointer;
+    font:700 17px/1.2 inherit;font-family:inherit;text-decoration:none;color:#1a0a00;
+    background:linear-gradient(135deg,var(--orange2),var(--orange));
+    box-shadow:0 6px 20px rgba(255,106,0,.45);transition:transform .15s, opacity .2s}
+  .btn:active{transform:scale(.97)}
+  .btn[disabled]{opacity:.35;cursor:not-allowed;box-shadow:none}
+  .btn.ghost{background:transparent;color:var(--orange2);border:1px solid var(--orange);box-shadow:none;
+    font-size:14px;padding:10px;margin-top:10px}
+  .handle{margin-top:10px;font-size:14px;opacity:.8}
+  #wifi{display:none;margin-top:18px;animation:pop .5s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+  .row{display:flex;flex-direction:column;gap:4px;text-align:left;margin-bottom:14px}
+  .label{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
+  .value{font:700 22px/1.2 "Courier New",monospace;color:var(--orange2);
+    background:rgba(0,0,0,.35);padding:12px 14px;border-radius:12px;word-break:break-all;
+    border:1px dashed rgba(255,106,0,.6);user-select:all}
+  .thanks{margin-top:14px;font-size:15px}
+  footer{margin-top:26px;font-size:12px;opacity:.55;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="bats" aria-hidden="true" id="bats"></div>
+
+<main>
+  <div class="pumpkin" aria-hidden="true">🎃</div>
+  <h1>Buena Onda</h1>
+  <div class="sub">Lille</div>
+  <div class="halloween">👻 Happy Halloween 🦇</div>
+
+  <section class="card" id="step1">
+    <div class="step">Étape 1</div>
+    <p>Suis-nous sur Instagram pour débloquer le Wi-Fi du bar&nbsp;!</p>
+    <a class="btn" id="followBtn" href="#" target="_blank" rel="noopener">🧡 Suivre @<span id="handleTxt"></span></a>
+    <div class="handle">Le compte s'ouvre dans Instagram, appuie sur « Suivre » puis reviens ici.</div>
+  </section>
+
+  <section class="card" id="step2">
+    <div class="step">Étape 2</div>
+    <p>C'est fait&nbsp;? Alors on t'ouvre les portes du Wi-Fi.</p>
+    <button class="btn" id="revealBtn" disabled>🔓 J'ai suivi, afficher le Wi-Fi</button>
+  </section>
+
+  <section class="card" id="wifi" aria-live="polite">
+    <div class="step">Ton accès Wi-Fi</div>
+    <div class="row"><span class="label">Réseau</span><span class="value" id="ssid"></span></div>
+    <div class="row"><span class="label">Mot de passe</span><span class="value" id="pwd"></span></div>
+    <button class="btn ghost" id="copyBtn">📋 Copier le mot de passe</button>
+    <p class="thanks">Merci et bonne soirée d'Halloween&nbsp;! 🍹</p>
+  </section>
+
+  <footer>Buena Onda Lille · 34 rue Saint-Sébastien, 59000 Lille</footer>
+</main>
+
+<script>
+/* ============ À MODIFIER ============ */
+const CONFIG = {
+  instagram: "buenaondalille",   // ← à vérifier : identifiant du compte officiel (sans @)
+  ssid:      "NOM_DU_RESEAU",    // ← nom du réseau Wi-Fi invités
+  password:  "MOT_DE_PASSE"      // ← mot de passe Wi-Fi invités
+};
+/* ==================================== */
+
+const $ = id => document.getElementById(id);
+$("handleTxt").textContent = CONFIG.instagram;
+$("followBtn").href = "https://www.instagram.com/" + CONFIG.instagram + "/";
+$("ssid").textContent = CONFIG.ssid;
+$("pwd").textContent  = CONFIG.password;
+
+$("followBtn").addEventListener("click", () => {
+  $("revealBtn").disabled = false;
+});
+
+$("revealBtn").addEventListener("click", () => {
+  $("wifi").style.display = "block";
+  $("wifi").scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+$("copyBtn").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(CONFIG.password);
+    $("copyBtn").textContent = "✅ Copié !";
+  } catch (e) {
+    $("copyBtn").textContent = "Appuie longuement sur le mot de passe pour le copier";
+  }
+});
+
+/* chauves-souris décoratives */
+const bats = $("bats");
+for (let i = 0; i < 6; i++) {
+  const b = document.createElement("span");
+  b.className = "bat";
+  b.textContent = "🦇";
+  b.style.top = (5 + Math.random()*70) + "vh";
+  b.style.fontSize = (16 + Math.random()*18) + "px";
+  b.style.animationDuration = (14 + Math.random()*16) + "s";
+  b.style.animationDelay = (-Math.random()*20) + "s";
+  bats.appendChild(b);
+}
+</script>
+</body>
+</html>
